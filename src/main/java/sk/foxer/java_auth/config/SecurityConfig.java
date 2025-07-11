@@ -55,13 +55,23 @@ public class SecurityConfig {
     }
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Povolí Netlify doménu
-        configuration.setAllowedOrigins(Arrays.asList(frontendUrl, "http://localhost:5173"));
+        configuration.setAllowedOriginPatterns(Arrays.asList(frontendUrl, "http://localhost:5173", "capacitor://*", "http://192.168.*.*"));
+
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
+        configuration.setAllowedHeaders(Arrays.asList(
+                "authorization",
+                "content-type",
+                "x-auth-token",
+                "X-Requested-With",
+                "Accept",
+                "Origin"
+        ));
+
         configuration.setAllowCredentials(true);
+        configuration.setExposedHeaders(Arrays.asList("authorization", "x-auth-token"));
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
