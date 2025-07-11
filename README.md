@@ -69,4 +69,4 @@ cd java-auth
 
 ## Live Demo
 
-👉 [Demo link here if available](https://react-auth-henna.vercel.app/)
+👉 [Demo link](https://react-auth-henna.vercel.app/)
